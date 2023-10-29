@@ -1,0 +1,122 @@
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+scroll-behavior: smooth;
+font-family:'Poppins', sans-serif;
+
+
+
+}
+
+
+header{
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    padding:20px 120px;
+    background:#11141a;
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    z-index:100;
+}
+
+.logo{
+    font-size:25px;
+    color:white;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+nav a {
+    font-size:18px;
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 35px;
+    transition: .3s;
+}
+
+nav a:hover,nav a.active{
+    color:cyan;
+
+}
+
+
+
+section{
+    min-height:100vh;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background: #1f242d;
+    font-size: 100px;
+    color:white;
+    font-weight:700;
+    text-decoration: none;
+    
+
+}
+
+
+
+
+
+
+
+
+section:nth-child(odd){
+    background:#323946;
+
+}
+
+.log, .crea{
+    display:block;
+    justify-content: center;
+    align-items: center;
+    background: #1f242d;
+    font-size: 50px;
+    color:white;
+    font-weight:700;
+    margin: 5px;
+    text-align: center;
+    padding: 5px 10px; /* Adjust these values to control button size */
+    text-decoration: none;
+    background-color: #0074d9; /* Background color for the buttons */
+    border: 2px solid #0056b3; /* Border style for the buttons */
+    border-radius: 5px; /* Rounded corners for the buttons */
+
+
+    
+  
+}
+    
+
+
+.button-container {
+position: absolute;
+bottom: 0;
+left: 0;
+right: 0;
+text-align: center;
+padding:10px;
+border-radius: 5px;
+
+}
+
+
+.log{
+    display:block;
+    margin:5px;
+    top:-10px;
+}
+
+.crea{
+    display:block;
+    margin:100px;
+    
+}
+
