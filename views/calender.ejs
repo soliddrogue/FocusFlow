@@ -1,63 +1,119 @@
 <html>
 <head>
     <title>Fullcalendar</title> 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/> 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script> 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script> 
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 </head>
- <body>
-  <h2><center>Javascript Fullcalendar</center></h2>
-  <div class="container">
-   <div id="calendar"></div>
-  </div>
-  <br>
+<body>
+    <h2><center>Javascript Fullcalendar</center></h2>
+    <div class="container">
+        <div id="calendar"></div>
+    </div>
+    <br>
+
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+    
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Event Details</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="eventTitle">Event Title:</label>
+                        <input type="text" id="eventTitle" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="startDate">Start Date:</label>
+                        <input type="text" id="startDate" class="form-control datepicker">
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate">End Date:</label>
+                        <input type="text" id="endDate" class="form-control datepicker">
+                    </div>
+                    <button type="button" class="btn btn-success" id="addEventBtn" data-dismiss="modal">Add</button>
+                    <button type="button" class="btn btn-danger" id="deleteEventBtn">Delete</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            var calendar = $('#calendar').fullCalendar({
+                selectable: true,
+                selectHelper: true,
+                select: function() {
+                    $('#myModal').modal('toggle');
+                },
+                eventClick: function(event) {
+                    $('#myModal').modal('toggle');
+                    $('#eventTitle').val(event.title);
+                    $('#startDate').val(event.start.format('YYYY-MM-DD'));
+                    $('#endDate').val(event.end ? event.end.format('YYYY-MM-DD') : event.start.format('YYYY-MM-DD'));
+                    $('#addEventBtn').hide();
+                    $('#deleteEventBtn').show();
+                },
+                header: {
+                    left: 'month, agendaWeek, agendaDay, list',
+                    center: 'title',
+                    right: 'prev, today, next'
+                },
+                buttonText: {
+                    today: 'Today',
+                    month: 'Month',
+                    week: 'Week',
+                    day: 'Day',
+                    list: 'List'
+                }
+            });
+
+            // Initialize datepickers
+            $('.datepicker').datepicker({
+                autoclose: true,
+                format: 'yyyy-mm-dd'
+            });
+
+            $('#addEventBtn').on('click', function() {
+                var eventTitle = $('#eventTitle').val();
+                var startDate = $('#startDate').val();
+                var endDate = $('#endDate').val();
+
+                if (eventTitle && startDate && endDate) {
+                    calendar.fullCalendar('renderEvent', {
+                        title: eventTitle,
+                        start: startDate,
+                        end: endDate,
+                        allDay: true
+                    }, true);
+                }
+            });
+
+            $('#deleteEventBtn').on('click', function() {
+                var eventTitle = $('#eventTitle').val();
+                if (eventTitle) {
+                    calendar.fullCalendar('removeEvents', function (event) {
+                        return event.title === eventTitle;
+                    });
+                }
+                // Clear input fields
+                $('#eventTitle, #startDate, #endDate').val('');
+                $('#addEventBtn').show();
+                $('#deleteEventBtn').hide();
+                $('#myModal').modal('toggle');
+            });
+        });
+    </script>
 </body>
 </html>
-<script>
-   $(document).ready(function() {
-   $('#calendar').fullCalendar({
-           selectable: true,
-           selectHelper: true,
-           select: function()
-           {
-               $('#myModal').modal('toggle');
-           },
-           header:
-           {
-           left: 'month, agendaWeek, agendaDay, list',
-           center: 'title',
-           right: 'prev, today, next'
-           },
-           buttonText:
-           {
-           today: 'Today',
-           month: 'Month',
-           week: 'Week',
-           day: 'Day',
-           list: 'List'
-           }
-});
-});
-</script>
-
- <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Create Event</h4>
-        </div>
-        <div class="modal-body">
-          <input type="text" class="form-control">
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-     </div>
-  </div>
