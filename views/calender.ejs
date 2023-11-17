@@ -1,3 +1,4 @@
+
 <html>
 <head>
     <title>Fullcalendar</title> 
@@ -85,35 +86,60 @@
                 format: 'yyyy-mm-dd'
             });
 
-            $('#addEventBtn').on('click', function() {
-                var eventTitle = $('#eventTitle').val();
-                var startDate = $('#startDate').val();
-                var endDate = $('#endDate').val();
+            $('#addEventBtn').on('click', function () {
+    var eventTitle = $('#eventTitle').val();
+    var startDate = $('#startDate').val();
+    var endDate = $('#endDate').val();
 
-                if (eventTitle && startDate && endDate) {
-                    calendar.fullCalendar('renderEvent', {
-                        title: eventTitle,
-                        start: startDate,
-                        end: endDate,
-                        allDay: true
-                    }, true);
-                }
-            });
+    if (eventTitle && startDate && endDate) {
+        $.ajax({
+            type: 'POST',
+            url: '/saveEvent', // Change this to your server endpoint
+            data: {
+                title: eventTitle,
+                start: startDate,
+                end: endDate,
+            },
+            success: function (response) {
+                console.log(response); // Log the server response
+                calendar.fullCalendar('renderEvent', {
+                    title: eventTitle,
+                    start: startDate,
+                    end: endDate,
+                    allDay: true
+                }, true);
+            },
+            error: function (error) {
+                console.error(error);
+            }
+        });
+    }
+});
 
-            $('#deleteEventBtn').on('click', function() {
-                var eventTitle = $('#eventTitle').val();
-                if (eventTitle) {
-                    calendar.fullCalendar('removeEvents', function (event) {
-                        return event.title === eventTitle;
-                    });
-                }
+$('#deleteEventBtn').on('click', function () {
+    var eventTitle = $('#eventTitle').val();
+    if (eventTitle) {
+        $.ajax({
+            type: 'DELETE',
+            url: `/deleteEvent/${eventId}`, // Replace eventId with the actual event _id
+            success: function (response) {
+                console.log(response); // Log the server response
+                calendar.fullCalendar('removeEvents', function (event) {
+                    return event.title === eventTitle;
+                });
                 // Clear input fields
                 $('#eventTitle, #startDate, #endDate').val('');
                 $('#addEventBtn').show();
                 $('#deleteEventBtn').hide();
                 $('#myModal').modal('toggle');
-            });
+            },
+            error: function (error) {
+                console.error(error);
+            }
         });
+    }
+});
+});
     </script>
 </body>
 </html>
