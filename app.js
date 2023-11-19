@@ -5,9 +5,6 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const routes = require("./routes/pages");
 
-
-
-
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(bodyParser.json());

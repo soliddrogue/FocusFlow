@@ -47,25 +47,17 @@ router.get("/index", function(req, res) {
     res.render("index.ejs");
 });
 
-router.get("/post", function(req, res) {
-    res.render("Post.ejs");
-});
-
-router.get("/userpage", function(req, res) {
-    res.render("userpage.ejs");
-});
-
 
 router.get("/subscriptions", function(req, res) {
     res.render("subscriptions.ejs");
 });
 
-router.get("/creditcards", function(req, res) {
-    res.render("creditcards.ejs");
+router.get("/notes", function(req, res) {
+    res.render("notes.ejs");
 });
 
 router.get("/*", function(req, res) {
-    res.render("404.ejs");
+    res.render("");
 });
 
 
@@ -73,14 +65,17 @@ router.get("/*", function(req, res) {
 
 
 
-router.get("/userage", isLoggedIn, function(req, res) {
+router.get("/userpage", isLoggedIn, function(req, res) {
     // If the code reaches here, the user is authenticated
     if (req.session.user) {
-        res.render('userpage', { user: req.session.user });
+        res.render('userpage.ejs', { user: req.session.user });
     } else {
         res.send("Unauthorized User");
     }
 });
+
+
+
 
 
 router.post('/signup', (req, res) => {

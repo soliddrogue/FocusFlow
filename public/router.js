@@ -8,7 +8,7 @@ const route = async (event) => {
 const routes = {
     404: "404",
     "/calendar": "calendar",
-    "/creditcards": "creditcards",
+    "/notes": "notes",
     "/subscriptions": "subscriptions",
 };
 
