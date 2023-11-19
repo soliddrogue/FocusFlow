@@ -1,7 +1,10 @@
-
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Fullcalendar</title> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tabs</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
@@ -12,7 +15,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 </head>
 <body>
-    <h2><center>Javascript Fullcalendar</center></h2>
+    
+                <h2><center>Javascript Fullcalendar</center></h2>
     <div class="container">
         <div id="calendar"></div>
     </div>
@@ -52,94 +56,116 @@
 
     <script>
         $(document).ready(function() {
-            var calendar = $('#calendar').fullCalendar({
-                selectable: true,
-                selectHelper: true,
-                select: function() {
-                    $('#myModal').modal('toggle');
-                },
-                eventClick: function(event) {
-                    $('#myModal').modal('toggle');
-                    $('#eventTitle').val(event.title);
-                    $('#startDate').val(event.start.format('YYYY-MM-DD'));
-                    $('#endDate').val(event.end ? event.end.format('YYYY-MM-DD') : event.start.format('YYYY-MM-DD'));
-                    $('#addEventBtn').hide();
-                    $('#deleteEventBtn').show();
-                },
-                header: {
-                    left: 'month, agendaWeek, agendaDay, list',
-                    center: 'title',
-                    right: 'prev, today, next'
-                },
-                buttonText: {
-                    today: 'Today',
-                    month: 'Month',
-                    week: 'Week',
-                    day: 'Day',
-                    list: 'List'
-                }
-            });
+    var calendar = $('#calendar').fullCalendar({
+        selectable: true,
+        selectHelper: true,
+        select: function() {
+            resetModal();
+            $('#myModal').modal('show');
+        },
+        eventClick: function(event) {
+            $('#eventTitle').val(event.title);
+            $('#startDate').val(event.start.format('YYYY-MM-DD'));
+            $('#endDate').val(event.end ? event.end.format('YYYY-MM-DD') : event.start.format('YYYY-MM-DD'));
+            $('#addEventBtn').hide();
+            $('#deleteEventBtn').show();
+            
+            // Open the modal after setting the values
+            $('#myModal').modal('show');
+        },
+        header: {
+            left: 'month, agendaWeek, agendaDay, list',
+            center: 'title',
+            right: 'prev, today, next'
+        },
+        buttonText: {
+            today: 'Today',
+            month: 'Month',
+            week: 'Week',
+            day: 'Day',
+            list: 'List'
+        }
+    });
 
-            // Initialize datepickers
-            $('.datepicker').datepicker({
-                autoclose: true,
-                format: 'yyyy-mm-dd'
-            });
+    // Initialize datepickers
+    $('.datepicker').datepicker({
+        autoclose: true,
+        format: 'yyyy-mm-dd'
+    });
 
-            $('#addEventBtn').on('click', function () {
+    $('#addEventBtn').on('click', function() {
     var eventTitle = $('#eventTitle').val();
     var startDate = $('#startDate').val();
     var endDate = $('#endDate').val();
 
     if (eventTitle && startDate && endDate) {
+        // Send the event data to the server
         $.ajax({
-            type: 'POST',
-            url: '/saveEvent', // Change this to your server endpoint
-            data: {
+            url: '/saveEvent',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
                 title: eventTitle,
                 start: startDate,
-                end: endDate,
-            },
-            success: function (response) {
-                console.log(response); // Log the server response
+                end: endDate
+            }),
+            success: function(response) {
+                console.log(response.message);
                 calendar.fullCalendar('renderEvent', {
                     title: eventTitle,
                     start: startDate,
                     end: endDate,
                     allDay: true
                 }, true);
+
+                resetModal();
             },
-            error: function (error) {
+            error: function(error) {
                 console.error(error);
             }
         });
     }
 });
 
-$('#deleteEventBtn').on('click', function () {
+   $('#deleteEventBtn').on('click', function() {
     var eventTitle = $('#eventTitle').val();
+
     if (eventTitle) {
+        // Send a request to delete the event from the server
         $.ajax({
-            type: 'DELETE',
-            url: `/deleteEvent/${eventId}`, // Replace eventId with the actual event _id
-            success: function (response) {
-                console.log(response); // Log the server response
-                calendar.fullCalendar('removeEvents', function (event) {
+            url: '/deleteEvent',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ title: eventTitle }),
+            success: function(response) {
+                console.log(response.message);
+
+                // Remove the event from FullCalendar
+                calendar.fullCalendar('removeEvents', function(event) {
                     return event.title === eventTitle;
                 });
-                // Clear input fields
-                $('#eventTitle, #startDate, #endDate').val('');
-                $('#addEventBtn').show();
-                $('#deleteEventBtn').hide();
-                $('#myModal').modal('toggle');
+
+                resetModal();
             },
-            error: function (error) {
+            error: function(error) {
                 console.error(error);
             }
         });
     }
 });
+
+    // Function to reset the modal state
+    function resetModal() {
+        // Clear input fields
+        $('#eventTitle, #startDate, #endDate').val('');
+        // Reset button visibility
+        $('#addEventBtn').show();
+        $('#deleteEventBtn').hide();
+        // Close the modal
+        $('#myModal').modal('hide');
+    }
 });
     </script>
+        
 </body>
 </html>

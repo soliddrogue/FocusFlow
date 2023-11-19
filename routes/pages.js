@@ -6,7 +6,7 @@ const app = express()
 const User = require('../models/userModel');
 const Event = require('../models/calenderModel');
 const {isLoggedIn} = require('../middleware/auth');
-
+const path = require('path');
 
 
 app.set('view engine', 'ejs');
@@ -43,17 +43,44 @@ router.get("/homepage", function(req, res) {
     res.render("homepage.ejs");
 });
 
+router.get("/index", function(req, res) {
+    res.render("index.ejs");
+});
 
-router.get("/UserPage", isLoggedIn, function(req, res) {
+router.get("/post", function(req, res) {
+    res.render("Post.ejs");
+});
+
+router.get("/userpage", function(req, res) {
+    res.render("userpage.ejs");
+});
+
+
+router.get("/subscriptions", function(req, res) {
+    res.render("subscriptions.ejs");
+});
+
+router.get("/creditcards", function(req, res) {
+    res.render("creditcards.ejs");
+});
+
+router.get("/*", function(req, res) {
+    res.render("404.ejs");
+});
+
+
+
+
+
+
+router.get("/userage", isLoggedIn, function(req, res) {
     // If the code reaches here, the user is authenticated
     if (req.session.user) {
-        res.render('UserPage', { user: req.session.user });
+        res.render('userpage', { user: req.session.user });
     } else {
         res.send("Unauthorized User");
     }
 });
-
-
 
 
 router.post('/signup', (req, res) => {
@@ -95,13 +122,9 @@ router.post('/signup', (req, res) => {
                         password: hashedPassword
                     });
                     newUser.save().then(result => {
-                      
-                        res.json({
-                            status: "SUCCESS",
-                            message: "Signup Successful",
-                            data: result
-                        });
-                        res.render('UserPage.ejs');
+                    
+                       
+                        res.render('login.ejs');
                     })
                         .catch(err => {
                             res.json({
@@ -135,7 +158,7 @@ router.post('/login', (req, res) => {
                     const hashedPassword = data[0].password;
                     bcrypt.compare(password, hashedPassword).then(result => {
                         if (result) {
-                            res.render('UserPage.ejs');
+                            res.render('userpage.ejs');
                             req.session.user = {
                                 id: data[0]._id,
                                 email: data[0].email,
