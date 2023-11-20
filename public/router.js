@@ -6,10 +6,10 @@ const route = async (event) => {
 };
 
 const routes = {
-    404: "404",
     "/calendar": "calendar",
     "/notes": "notes",
-    "/subscriptions": "subscriptions",
+    "/creditcard": "creditcard",
+    "/subscriptions":"/subscriptions",
 };
 
 const handleLocation = async () => {

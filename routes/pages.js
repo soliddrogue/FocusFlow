@@ -56,12 +56,14 @@ router.get("/notes", function(req, res) {
     res.render("notes.ejs");
 });
 
-router.get("/*", function(req, res) {
-    res.render("");
+router.get("/creditcard", function(req, res) {
+    res.render("creditcard.ejs");
 });
 
 
-
+router.get("/*", function(req, res) {
+    res.render("");
+});
 
 
 
@@ -72,6 +74,11 @@ router.get("/userpage", isLoggedIn, function(req, res) {
     } else {
         res.send("Unauthorized User");
     }
+});
+
+
+router.get("/test", function(req, res) {
+    res.render("test.ejs");
 });
 
 

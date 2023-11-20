@@ -21,6 +21,7 @@
     "express-session": "^1.17.3",
     "method": "^2.0.0",
     "mongoose": "^7.6.3",
+    "mp4": "^0.5.2",
     "nodemon": "^3.0.1",
     "override": "^0.0.1",
     "passport": "^0.6.0",
