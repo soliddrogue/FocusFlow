@@ -1,5 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap');
+
+
+*{
+  font-family: 'Poppins', sans-serif;
+  margin:0; padding:0;
+  box-sizing: border-box;
+  outline: none; border: none;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+
+
+
 :root {
-    --dark: #374151;
+   
     --darker: #1F2937;
     --darkest: #111827;
     --grey: #6B7280;
@@ -8,12 +23,7 @@
     --light: #EEE;
   }
   
-  * {
-    margin: 0;
-    box-sizing: border-box;
-    font-family: "Fira sans", sans-serif;
-  }
-  
+ 
   body {
     display: flex;
     flex-direction: column;
@@ -60,11 +70,11 @@
 #new-subscription-price,
 #new-subscription-due-date {
 	flex: 1 1 0%;
-	background-color: var(--darker);
+	background-color: linear-gradient(45deg, blueviolet, deeppink);
 	padding: 1rem;
 	border-radius: 1rem;
 	margin-right: 1rem;
-	color: var(--light);
+	color: black;
 	font-size: 1.25rem;
 }
 

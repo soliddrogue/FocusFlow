@@ -12,7 +12,10 @@
 	
 	<header>
 		<h1 class="subt">Subscription App</h1>
-		<form id="new-subscription-form">
+		
+		
+				<div class="front">
+		<form action="/subscriptions" method="post" id="new-subscription-form">
 			<input 
 				type="text" 
 				name="new-subscription-username" 
@@ -52,6 +55,7 @@
 				id="new-subscription-submit" 
 				value="Add Subscription" />
 		</form>
+
 	</header>
 	<main>
 		<section class="subscription-list">
@@ -62,6 +66,7 @@
 			</div>
 		</section>
 	</main>
+
 
 	<script src="subscriptions.js"></script>
 </body>

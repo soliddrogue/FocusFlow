@@ -1,4 +1,5 @@
 html,
+
 body {
     font-family: sans-serif;
     margin: 0;
@@ -75,4 +76,50 @@ hr {
 .socials-card > i {
     font-size: 1.5rem;
     margin-right: 0.5rem;
+}
+
+/* Add your custom styles here */
+
+body {
+    font-family: 'Your Preferred Font', sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+}
+
+#root {
+    display: flex;
+    height: 100vh;
+}
+
+#main-nav {
+    width: 200px;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#main-nav a {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#main-nav a:hover {
+    background-color: #555;
+}
+
+#main-content {
+    flex: 1;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #fff;
+    color: #333;
 }
