@@ -41,7 +41,7 @@ body {
     height: 200px;
     border: none;
     outline: none;
-    background:linear-gradient(45deg, blueviolet, deeppink);
+    background-color: #333;
     border-radius: 10px;
     font-size: 120px;
     color: rgba(0, 0, 0, 0.5);

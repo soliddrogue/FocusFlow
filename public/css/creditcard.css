@@ -58,7 +58,7 @@
 
 .container form .submit-btn{
     width: 100%;
-    background:linear-gradient(45deg, blueviolet, deeppink);
+    background-color: #333;
     margin-top: 20px;
     padding: 10px;
     font-size: 20px;
@@ -85,7 +85,7 @@
     height: 100%;
     width: 100%;
     top: 0; left: 0;
-    background:linear-gradient(45deg, blueviolet, deeppink);
+    background-color: #333;
     border-radius: 5px;
     backface-visibility: hidden;
     box-shadow: 0 15px 25px rgba(0,0,0,.2);
@@ -129,7 +129,7 @@
     top:0; left: 0;
     height: 100%;
     width: 100%;
-    background:linear-gradient(45deg, blueviolet, deeppink);
+    background-color: #333;
     border-radius: 5px;
     padding: 20px 0;
     text-align: right;
@@ -170,3 +170,60 @@
     height: 30px;
 }
 
+
+.card-style {
+    background-color: #333;
+    border-radius: 5px;
+    backface-visibility: hidden;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, .2);
+    padding: 20px;
+    transform: perspective(1000px) rotateY(0deg);
+    transition: transform .4s ease-out;
+    color: #fff;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.card-style .card-number-box,
+.card-style .card-holder-name,
+.card-style .exp-box,
+.card-style .cvv-box {
+    margin-bottom: 10px;
+}
+
+
+.card-style .image {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 10px;
+}
+
+.card-style .image img {
+    height: 50px;
+}
+
+.card-style .card-number-box {
+    padding: 30px 0;
+    font-size: 22px;
+}
+
+.card-style .flexbox {
+    display: flex;
+}
+
+.card-style .flexbox .box:nth-child(1) {
+    margin-right: auto;
+}
+
+.card-style .flexbox .box {
+    font-size: 15px;
+}
+
+.credit-card-detail {
+    margin-bottom: 10px;
+  }
+
+  

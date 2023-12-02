@@ -15,9 +15,9 @@
 
         <div class="card-container">
     
-            <div id="credit-cards" class="front">
-                <div class="image">
-                </div>
+            <!-- The existing card visualization goes here (you can leave it as is) -->
+            <div class="front">
+                <div class="image"></div>
                 <div class="card-number-box">################</div>
                 <div class="flexbox">
                     <div class="box">
@@ -33,15 +33,14 @@
                     </div>
                 </div>
             </div>
-
-  
-    
+            
         </div>
     
         <form action="/submitCC" method="post">
+            <!-- Form inputs go here (unchanged from your original code) -->
             <div class="inputBox">
                 <span>card number</span>
-                <input type="text" maxlength="16" class="card-number-input">
+                <input type="text" maxlength="16" class="card-number-input" onchange=updateUI()>
             </div>
             <div class="inputBox">
                 <span>card holder</span>
@@ -89,12 +88,9 @@
             </div>
             <input type="submit" value="submit" class="submit-btn">
         </form>
-    
-    </div>    
-        
-    
-    
-    
 
+        <!-- The container for displaying credit card details -->
+        <div class="credit-cards" id="credit-cards"></div>
+    </div>    
 </body>
 </html>

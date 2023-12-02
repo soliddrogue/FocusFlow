@@ -37,6 +37,19 @@ router.get("/calendar", function(req, res) {
     res.render("calendar.ejs");
 });
 
+router.get("/creditcard", function(req, res) {
+    res.render("creditcard.ejs");
+});
+
+router.get("/subscriptions", function(req, res) {
+    res.render("subscriptions.ejs");
+});
+
+router.get("/notes", function(req, res) {
+    res.render("notes.ejs");
+});
+
+
 // ... (similarly for other routes)
 
 // User authentication middleware

@@ -70,7 +70,7 @@
 #new-subscription-price,
 #new-subscription-due-date {
 	flex: 1 1 0%;
-	background-color: linear-gradient(45deg, blueviolet, deeppink);
+	background-color:#333;
 	padding: 1rem;
 	border-radius: 1rem;
 	margin-right: 1rem;

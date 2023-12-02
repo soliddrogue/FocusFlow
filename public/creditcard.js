@@ -1,37 +1,41 @@
-// Event handler for window.onload
-window.onload = function () {
-  // Attach an event listener to the submit button
-  document.querySelector('.submit-btn').onclick = handleSubmit;
-};
+// Event listener for the 'load' event on the window
+window.addEventListener('load', () => {
+  // Get references to the form and credit cards container elements
+  const form = document.querySelector("form");
+  const creditCardContainer = document.querySelector('#credit-cards');
 
-// Handle form submission
-async function handleSubmit(event) {
-  // Prevent the default form submission behavior
-  event.preventDefault();
+  // Event listener for the form submission
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-  // Collect form data from input fields
-  const formData = getFormData();
+    // Get credit card data from form inputs
+    const creditCardData = getCreditCardData();
 
-  // Update the card visualization based on the entered data
-  updateCardInfo(formData);
+    try {
+      // Save credit card data to the server
+      await saveCreditCard(creditCardData);
+      console.log('Credit card data saved successfully!');
+    } catch (error) {
+      console.error('Failed to save credit card data:', error);
+    }
 
-  // Add the credit card details to the bottom of the page
-  addCreditCardToPage(formData);
+    // Create a new credit card element and add the card-style class
+    const creditCardElement = createCreditCardElement(creditCardData);
+    creditCardElement.classList.add('card-style');
 
-  // Send the form data to the server using a POST request
-  try {
-    const response = await sendFormData(formData);
+    // Add event listeners for update and delete
+    addCreditCardEventListeners(creditCardElement, creditCardData);
 
-    // Check if the request was successful and log the result
-    handleResponse(response);
-  } catch (error) {
-    // Log any errors that occur during the request
-    handleRequestError(error);
-  }
-}
+    // Append the new credit card element to the container
+    creditCardContainer.appendChild(creditCardElement);
 
-// Retrieve form data from input fields
-function getFormData() {
+    // Clear form inputs
+    clearFormInputs();
+  });
+});
+
+// Function to get credit card data from form inputs
+function getCreditCardData() {
   return {
     cardNumber: document.querySelector('.card-number-input').value,
     cardHolder: document.querySelector('.card-holder-input').value,
@@ -41,36 +45,72 @@ function getFormData() {
   };
 }
 
-// Update the card information displayed on the page
-function updateCardInfo(formData) {
-  // Update card number
-  document.querySelector('.card-number-box').textContent = formData.cardNumber;
+// Function to save credit card data to the server
+async function saveCreditCard(creditCardData) {
+  const response = await fetch('/submitCC', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(creditCardData),
+  });
 
-  // Update card holder
-  document.querySelector('.card-holder-name').textContent = formData.cardHolder;
-
-  // Update expiration date
-  document.querySelector('.exp-month').textContent = formData.expirationMonth;
-  document.querySelector('.exp-year').textContent = formData.expirationYear.slice(-2);
-
-  // Update CVV
-  document.querySelector('.cvv-box').textContent = formData.cvv;
+  if (!response.ok) {
+    throw new Error('Failed to save credit card data');
+  }
 }
 
-// Add the credit card details to the bottom of the page
-function addCreditCardToPage(formData) {
-  // Get the container element for credit cards
-  const creditCardContainer = document.querySelector('#credit-cards');
+// Function to add event listeners for update and delete to a credit card element
+function addCreditCardEventListeners(creditCardElement, creditCardData) {
+  const updateButton = createActionButton('Update');
+  const deleteButton = createActionButton('Delete');
 
-  // Create a new div element for the credit card
+  // Add event listeners to the action buttons
+  updateButton.addEventListener('click', () => handleUpdateCreditCard(creditCardElement, creditCardData));
+  deleteButton.addEventListener('click', () => handleDeleteCreditCard(creditCardElement));
+
+  // Create actions container and append buttons
+  const actionsElement = document.createElement('div');
+  actionsElement.classList.add('credit-card-actions');
+  actionsElement.appendChild(updateButton);
+  actionsElement.appendChild(deleteButton);
+
+  // Append actions container to the credit card element
+  creditCardElement.appendChild(actionsElement);
+}
+
+// Function to create an action button with specified text
+function createActionButton(text) {
+  const buttonElement = document.createElement('button');
+  buttonElement.classList.add('credit-card-action');
+  buttonElement.textContent = text;
+
+  return buttonElement;
+}
+
+// Function to handle deleting a credit card
+function handleDeleteCreditCard(creditCardElement) {
+  // Implement your delete logic here
+  creditCardElement.remove(); // This removes the credit card element from the DOM
+}
+
+
+// Function to clear form inputs
+function clearFormInputs() {
+  const formInputs = document.querySelectorAll("form input");
+  formInputs.forEach(input => (input.value = ''));
+}
+
+// Function to create a new credit card element with input fields and actions
+function createCreditCardElement(data) {
   const creditCardElement = document.createElement('div');
   creditCardElement.classList.add('credit-card');
 
   // Create div elements for each credit card detail and set their text content
-  const cardNumberElement = createCardDetailElement(formData.cardNumber);
-  const cardHolderElement = createCardDetailElement(formData.cardHolder);
-  const expirationElement = createCardDetailElement(`${formData.expirationMonth}/${formData.expirationYear.slice(-2)}`);
-  const cvvElement = createCardDetailElement(formData.cvv);
+  const cardNumberElement = createCardDetailElement("Card Number: " + data.cardNumber);
+  const cardHolderElement = createCardDetailElement("Card Holder: " + data.cardHolder);
+  const expirationElement = createCardDetailElement("Expiration Date: " + `${data.expirationMonth}/${data.expirationYear.slice(-2)}`);
+  const cvvElement = createCardDetailElement("CVV: " + data.cvv);
 
   // Append the detail elements to the credit card element
   creditCardElement.appendChild(cardNumberElement);
@@ -78,11 +118,10 @@ function addCreditCardToPage(formData) {
   creditCardElement.appendChild(expirationElement);
   creditCardElement.appendChild(cvvElement);
 
-  // Append the credit card element to the container
-  creditCardContainer.appendChild(creditCardElement);
+  return creditCardElement;
 }
 
-// Create a div element for a credit card detail and set its text content
+// Function to create a div element for a credit card detail and set its text content
 function createCardDetailElement(value) {
   const cardDetailElement = document.createElement('div');
   cardDetailElement.textContent = value;
@@ -90,27 +129,6 @@ function createCardDetailElement(value) {
   return cardDetailElement;
 }
 
-// Send form data to the server using a POST request
-async function sendFormData(formData) {
-  return fetch('/submitCC', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(formData),
-  });
-}
-
-// Handle the response from the server
-function handleResponse(response) {
-  if (response.ok) {
-    console.log('Credit card data submitted successfully');
-  } else {
-    console.error('Failed to submit credit card data');
-  }
-}
-
-// Handle errors that occur during the request
-function handleRequestError(error) {
-  console.error('Error:', error);
+function updateUI(){
+  
 }
