@@ -23,7 +23,7 @@ window.addEventListener('load', () => {
     const creditCardElement = createCreditCardElement(creditCardData);
     creditCardElement.classList.add('card-style');
 
-    // Add event listeners for update and delete
+    // Add event listener for delete
     addCreditCardEventListeners(creditCardElement, creditCardData);
 
     // Append the new credit card element to the container
@@ -60,19 +60,16 @@ async function saveCreditCard(creditCardData) {
   }
 }
 
-// Function to add event listeners for update and delete to a credit card element
+// Function to add event listener for delete to a credit card element
 function addCreditCardEventListeners(creditCardElement, creditCardData) {
-  const updateButton = createActionButton('Update');
   const deleteButton = createActionButton('Delete');
 
-  // Add event listeners to the action buttons
-  updateButton.addEventListener('click', () => handleUpdateCreditCard(creditCardElement, creditCardData));
+  // Add event listener to the delete button
   deleteButton.addEventListener('click', () => handleDeleteCreditCard(creditCardElement));
 
-  // Create actions container and append buttons
+  // Create actions container and append the delete button
   const actionsElement = document.createElement('div');
   actionsElement.classList.add('credit-card-actions');
-  actionsElement.appendChild(updateButton);
   actionsElement.appendChild(deleteButton);
 
   // Append actions container to the credit card element
@@ -93,7 +90,6 @@ function handleDeleteCreditCard(creditCardElement) {
   // Implement your delete logic here
   creditCardElement.remove(); // This removes the credit card element from the DOM
 }
-
 
 // Function to clear form inputs
 function clearFormInputs() {
@@ -129,6 +125,6 @@ function createCardDetailElement(value) {
   return cardDetailElement;
 }
 
-function updateUI(){
-  
+function updateUI() {
+  // Add any UI update logic here if needed
 }

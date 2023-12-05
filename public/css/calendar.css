@@ -8,3 +8,68 @@
     text-decoration: none;
     text-transform: uppercase;
 }
+
+.modal-header{
+    background-color: black;
+}
+
+.modal-footer{
+    background-color: black;
+}
+
+#calendar {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.container {
+    margin-top: 20px;
+    background-color:black ;
+    padding: 20px;
+    border-radius: 10px;
+    color:#dd3f31;
+    box-shadow: 0 15px 25px rgba(0,0,0,.2);
+}
+
+
+
+
+.modal-dialog,
+.modal-body {
+    background-color: black !important;
+}
+
+
+.modal-title,
+.form-group label {
+    color: red !important;
+}
+
+
+.form-control,
+.btn-success,
+.btn-danger,
+#myModal .btn-update,
+#myModal .btn-close {
+    background-color: red !important;
+    border-color: red !important;
+    color: white !important; 
+}
+
+
+.btn-success:hover,
+.btn-danger:hover,
+#myModal .btn-update:hover,
+#myModal .btn-close:hover {
+    background-color: darkred !important;
+    border-color: darkred !important;
+}
+
+
+.btn-success:active,
+.btn-danger:active,
+#myModal .btn-update:active,
+#myModal .btn-close:active {
+    background-color: darkred !important;
+    border-color: darkred !important;
+}

@@ -34,7 +34,8 @@ window.onload = function() {
                 week: 'Week',
                 day: 'Day',
                 list: 'List'
-            }
+            },
+            eventBorderColor: 'black',
         });
 
         // Initialize datepickers using the Bootstrap datepicker plugin

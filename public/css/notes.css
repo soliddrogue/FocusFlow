@@ -15,7 +15,7 @@
 
 body {
     margin: 0;
-    background: white;
+    background: #dd3f31;
   }
   
   #app {
@@ -35,13 +35,15 @@ body {
     resize: none;
     font-family: sans-serif;
     font-size: 16px;
+    background-color: black;
+    color:#dd3f31;
   }
   
   .add-note {
     height: 200px;
     border: none;
     outline: none;
-    background-color: #333;
+    background-color: #dd3f31;
     border-radius: 10px;
     font-size: 120px;
     color: rgba(0, 0, 0, 0.5);

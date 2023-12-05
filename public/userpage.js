@@ -15,10 +15,10 @@ window.onload = function () {
     // Define the routes for the application
     const routes = {
         "/home": "home", // Add a route for the landing page
-        "/calendar": "calendar",
-        "/notes": "notes",
-        "/creditcard": "creditcard",
-        "/subscriptions": "subscriptions",
+        "/calendar": "calendar.ejs",
+        "/notes": "notes.ejs",
+        "/creditcard": "creditcard.ejs",
+        "/subscriptions": "subscriptions.ejs",
     };
 
     // Handle the location change by fetching and updating the content
@@ -30,7 +30,7 @@ window.onload = function () {
         const routePath = routes[path] || routes[404];
 
         // Fetch the HTML content for the route
-        const html = await fetch(routePath + '.html').then((data) => data.text());
+        const html = await fetch(routePath + '.ejs').then((data) => data.text());
 
         // Update the content of the main-page element with the fetched HTML
         document.getElementById("main-page").innerHTML = html;
@@ -45,3 +45,4 @@ window.onload = function () {
     // Initialize the application by handling the initial location
     handleLocation();
 };
+

@@ -11,86 +11,141 @@
 
 </head>
 <body>
-    <div class="container">
 
-        <div class="card-container">
-    
-            <!-- The existing card visualization goes here (you can leave it as is) -->
-            <div class="front">
-                <div class="image"></div>
-                <div class="card-number-box">################</div>
-                <div class="flexbox">
-                    <div class="box">
-                        <span>card holder</span>
-                        <div class="card-holder-name">full name</div>
-                    </div>
-                    <div class="box">
-                        <span>expires</span>
-                        <div class="expiration">
-                            <span class="exp-month">mm</span>
-                            <span class="exp-year">yy</span>
+  
+      <section class="dark">
+        <h1>Input Credit Card Information!</h1>
+       
+      </section>
+  
+      <section class="red">
+        <div class="container">
+
+            <div class="card-container">
+        
+                <!-- The existing card visualization goes here (you can leave it as is) -->
+                <div class="front">
+                    <div class="image"></div>
+                    <div class="card-number-box">################</div>
+                    <div class="flexbox">
+                        <div class="box">
+                            <span>card holder</span>
+                            <div class="card-holder-name">full name</div>
+                        </div>
+                        <div class="box">
+                            <span>expires</span>
+                            <div class="expiration">
+                                <span class="exp-month">mm</span>
+                                <span class="exp-year">yy</span>
+                            </div>
                         </div>
                     </div>
                 </div>
+                
             </div>
-            
-        </div>
+        
+            <form action="/submitCC" method="post">
+                <!-- Form inputs go here (unchanged from your original code) -->
     
-        <form action="/submitCC" method="post">
-            <!-- Form inputs go here (unchanged from your original code) -->
-            <div class="inputBox">
-                <span>card number</span>
-                <input type="text" maxlength="16" class="card-number-input" onchange=updateUI()>
-            </div>
-            <div class="inputBox">
-                <span>card holder</span>
-                <input type="text" class="card-holder-input">
-            </div>
-            <div class="flexbox">
+    
                 <div class="inputBox">
-                    <span>expiration mm</span>
-                    <select name="" id="" class="month-input">
-                        <option value="month" selected disabled>month</option>
-                        <option value="01">01</option>
-                        <option value="02">02</option>
-                        <option value="03">03</option>
-                        <option value="04">04</option>
-                        <option value="05">05</option>
-                        <option value="06">06</option>
-                        <option value="07">07</option>
-                        <option value="08">08</option>
-                        <option value="09">09</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                    </select>
+                    <span>card number</span>
+                    <input type="text" maxlength="16" class="card-number-input" onchange=updateUI()>
                 </div>
                 <div class="inputBox">
-                    <span>expiration yy</span>
-                    <select name="" id="" class="year-input">
-                        <option value="year" selected disabled>year</option>
-                        <option value="2021">2021</option>
-                        <option value="2022">2022</option>
-                        <option value="2023">2023</option>
-                        <option value="2024">2024</option>
-                        <option value="2025">2025</option>
-                        <option value="2026">2026</option>
-                        <option value="2027">2027</option>
-                        <option value="2028">2028</option>
-                        <option value="2029">2029</option>
-                        <option value="2030">2030</option>
-                    </select>
+                    <span>card holder</span>
+                    <input type="text" class="card-holder-input">
                 </div>
-                <div class="inputBox">
-                    <span>cvv</span>
-                    <input type="text" maxlength="4" class="cvv-input">
+                <div class="flexbox">
+                    <div class="inputBox">
+                        <span>expiration mm</span>
+                        <select name="" id="" class="month-input">
+                            <option value="month" selected disabled>month</option>
+                            <option value="01">01</option>
+                            <option value="02">02</option>
+                            <option value="03">03</option>
+                            <option value="04">04</option>
+                            <option value="05">05</option>
+                            <option value="06">06</option>
+                            <option value="07">07</option>
+                            <option value="08">08</option>
+                            <option value="09">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                        </select>
+                    </div>
+                    <div class="inputBox">
+                        <span>expiration yy</span>
+                        <select name="" id="" class="year-input">
+                            <option value="year" selected disabled>year</option>
+                            <option value="2021">2021</option>
+                            <option value="2022">2022</option>
+                            <option value="2023">2023</option>
+                            <option value="2024">2024</option>
+                            <option value="2025">2025</option>
+                            <option value="2026">2026</option>
+                            <option value="2027">2027</option>
+                            <option value="2028">2028</option>
+                            <option value="2029">2029</option>
+                            <option value="2030">2030</option>
+                        </select>
+                    </div>
+                    <div class="inputBox">
+                        <span>cvv</span>
+                        <input type="text" maxlength="4" class="cvv-input">
+                    </div>
                 </div>
-            </div>
-            <input type="submit" value="submit" class="submit-btn">
-        </form>
+                <input type="submit" value="submit" class="submit-btn">
+            </form>
+    
+            <!-- The container for displaying credit card details -->
+            <div class="credit-cards" id="credit-cards"></div>
+        </div>    
+  
+        <div class="wave">
+          <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path
+              d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+              class="shape-fill"
+            ></path>
+          </svg>
+        </div>
+      </section>
+  
+      </section>
+  
+     
 
-        <!-- The container for displaying credit card details -->
-        <div class="credit-cards" id="credit-cards"></div>
-    </div>    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
 </body>
 </html>

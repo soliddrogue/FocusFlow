@@ -1,5 +1,6 @@
 html,
 
+
 body {
     font-family: sans-serif;
     margin: 0;
@@ -26,6 +27,7 @@ hr {
 
 #main-page {
     flex-grow: 1;
+    background-color: #dd3f31;
 }
 
 .sidebar {
@@ -70,7 +72,7 @@ hr {
 }
 
 .socials-card:hover {
-    background-color: lightgray;
+    background-color: #dd3f31;
 }
 
 .socials-card > i {
@@ -93,7 +95,7 @@ body {
 
 #main-nav {
     width: 200px;
-    background-color: #333;
+    background-color: black;
     color: #fff;
     padding: 20px;
     box-sizing: border-box;
@@ -120,6 +122,84 @@ body {
     flex: 1;
     padding: 20px;
     box-sizing: border-box;
-    background-color: #fff;
-    color: #333;
+    background-color:#dd3f31;;
+    color: black;
 }
+
+.ree{
+    font-size: 4rem;
+    color:black;
+    text-align:center;
+}
+
+ .purple {
+    background: #3c31dd;
+  }
+
+  .red {
+    background: #dd3f31;
+  }
+
+  .pink {
+    background: #ff0066;
+    overflow: hidden;
+  }
+
+  .dark {
+    background: #0f0f10;
+  }
+
+
+
+  .bubble::after {
+    content: '';
+    border-top-left-radius: 50% 100%;
+    border-top-right-radius: 50% 100%;
+    position: absolute;
+    bottom: 0;
+    z-index: -1;
+    width: 100%;
+    background-color: #0f0f10;
+    height: 85%;
+  }
+
+  /* Blobs SVG background image via https://haikei.app/ */
+
+  .blob-motion {
+    position: absolute;
+    transform: translateY(-20%);
+    z-index: 0;
+  }
+
+  .blob-content {
+    z-index: 1;
+    
+  }
+
+  .blobs {
+    width: 100%;
+    background: url('./blobs.svg') no-repeat bottom / cover;
+   
+  }
+
+    
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+
+  a{
+    border:1px solid #dd3f31;
+    background: black;
+    padding:10px;
+    color:#dd3f31;
+    text-decoration: none;
+    border-radius: 6px;
+  
+  }
+
+  .logbtn{
+    text-align: center;
+  }
