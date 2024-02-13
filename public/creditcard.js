@@ -46,7 +46,7 @@ function getCreditCardData() {
 }
 
 // Function to save credit card data to the server
-async function saveCreditCard(creditCardData) {
+async function saveCreditCard(creditCardData) { //async means the method will run on proj start | without asyc it will run the functions in the order they are written
   const response = await fetch('/submitCC', {
     method: 'POST',
     headers: {

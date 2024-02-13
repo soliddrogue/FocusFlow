@@ -237,7 +237,7 @@ router.post('/deleteEvent', async (req, res) => {
 
 router.post('/submitCC', async (req, res) => {
     try {
-        let { cardNumber, cardHolder, expirationMonth, expirationYear, cvv } = req.body;
+        let { cardNumber, cardHolder, expirationMonth, expirationYear, cvv } = req.body; 
 
         // Validate input
         if (cardNumber === "" || cardHolder === "" || expirationMonth === "" || expirationYear === "" || cvv === "" ) {

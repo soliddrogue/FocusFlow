@@ -260,7 +260,7 @@ h1 {
 }
 
 .input-box input::placeholder {
-    color: black; /* This line sets the placeholder text color to white */
+    color: black; 
 }
 
 
